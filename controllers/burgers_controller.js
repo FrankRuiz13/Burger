@@ -17,13 +17,14 @@ router.get("/", function(req, res) {
 });
 
 router.post("/api/burger", function(req, res) {
+  console.log("burger name: " +JSON.stringify(req.body));
   burger.create([
     "burger_name"
   ], [
     req.body.burger_name
   ], function(result) {
     // Send back the ID of the new quote
-    res.json({ id: result.insertId });
+    res.redirect("/");
   });
 });
 
@@ -33,7 +34,7 @@ router.put("/api/burger/:id", function(req, res) {
   console.log("condition", condition);
 
   burger.update({
-    devoured: req.body.devoured
+    devoured: true
   }, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
